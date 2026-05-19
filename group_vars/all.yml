@@ -25,7 +25,7 @@ _p_droot: "{{ _p_root }}/data"
 _p_dcrypto: "{{ _p_droot }}/crypto"
 _p_data: "{{ _p_root }}/data.json"
 _p_dev: "{{ _p_root }}/dev"
-_p_collection: /usr/share/ansible/collections/ansible_collections/aybarsm/all
+_p_collection: /usr/local/share/ansible/collections/ansible_collections/aybarsm/all
 ##### END: Paths #####
 
 ##### BEGIN: Facts #####
