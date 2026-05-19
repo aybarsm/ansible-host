@@ -5,7 +5,7 @@
   gather_facts: false
   vars:
     _exec_pull: "{{ not _is_env_dev }}"
-    _exec_collection_pull: "{{ _exec_pull and _collection and _p_collection }}"
+    _exec_collection_pull: "{{ _exec_pull and _collection is not none and _p_collection is not none }}"
 
   tasks:
     - name: Ensure Host Collection Repo Directory Exists
