@@ -1,3 +1,4 @@
+ansible.cfg
 modules/ansible/collections/ansible_collections/*
 !modules/ansible/collections/ansible_collections/.gitkeep
 modules/ansible/roles/*

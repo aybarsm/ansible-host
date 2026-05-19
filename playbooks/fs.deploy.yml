@@ -1,0 +1,31 @@
+---
+- import_playbook: host.repo.pull.yml
+  tags: always
+
+- name: Filesystem - Deploy
+  hosts: localhost
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: Retrieve Files
+      ansible.builtin.find:
+        paths: "{{ [_p_fcommon] }}"
+        recurse: true
+      register: fs_exec_find_files
+      tags: always
+    
+    - name: DEBUG
+      ansible.builtin.debug:
+        msg:
+          _srcs: "{{ _srcs }}"
+          _dests: "{{ _dests }}"
+          # _p_fcommon: "{{ _p_fcommon }}"
+          # fs_exec_find_files: "{{ fs_exec_find_files }}"
+          # _dests: "{{ _dests }}"
+          # _dest_regex: "{{ _dest_regex }}"
+      vars:
+        _srcs: "{{ fs_exec_find_files.files | map(attribute='path') }}"
+        _dest_regex: "{{ '^' + (_p_fcommon | regex_escape) + '(.*)$' }}"
+        _dests: "{{ _srcs | map('regex_replace', _dest_regex, '\\1' ) }}"
+      tags: always

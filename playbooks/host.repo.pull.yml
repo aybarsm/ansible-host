@@ -10,5 +10,6 @@
       ansible.builtin.git:
         repo: "{{ _repo }}"
         dest: "{{ _p_root }}"
+      when: not _is_env_dev
       register: exec_git_host_git_repo
       tags: always

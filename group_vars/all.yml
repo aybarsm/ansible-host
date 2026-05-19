@@ -12,8 +12,9 @@ _repo: https://github.com/aybarsm/ansible-host
 ##### BEGIN: Paths #####
 _p_home: "{{ lookup('ansible.builtin.env', 'HOME') | default('', true) }}"
 _p_pwd: "{{ lookup('ansible.builtin.env', 'PWD') | default('', true) }}"
-_p_home_ansible: "{{ [_p_home, '.ansible'] | path_join }}"
+_p_home_ansible: "{{ _p_home }}/.ansible"
 _p_root: "{{ inventory_file | dirname }}"
+_p_playbooks: "{{ _p_root }}/playbooks"
 _p_roles: "{{ lookup('ansible.builtin.config', 'DEFAULT_ROLES_PATH', on_missing='skip') }}"
 _p_collections: "{{ lookup('ansible.builtin.config', 'COLLECTIONS_PATHS', on_missing='skip') }}"
 _p_froot: "{{ _p_root }}/files"
@@ -37,9 +38,23 @@ _dist: "{{ ansible_facts['distribution_release'] | default('N/A') }}"
 _sys: "{{ ansible_facts['system'] | default('N/A') | lower }}"
 _mac_addr_prefix: '02:12:18'
 _user: "{{ lookup('env', 'SUDO_USER') | default(lookup('env', 'USER'), true) }}"
+# _app_env: "{{ lookup('ansible.builtin.file', _p_dev + '/env') | default('production', true) }}"
+_env_hostname: "{{ lookup('ansible.builtin.pipe', 'hostname') }}"
+_env_hns: "{{ _env_hostname | split('.') | first }}"
+_env_computer_name: "{{ lookup('ansible.builtin.env', 'COMPUTER_NAME', default='unknown') }}"
 ##### END: Facts #####
 
 ##### BEGIN: Ansible #####
-ansible_config_file: "{{ [_p_root, 'ansible.cfg'] | path_join }}"
+# ansible_config_file: "{{ [_p_root, 'ansible.cfg'] | path_join }}"
 # ansible_user: blrm
 ##### END: Ansible #####
+
+##### BEGIN: Checks #####
+_is_env_dev: "{{ _env_computer_name in ['aybarsmPro'] }}"
+##### END: Checks #####
+
+##### BEGIN: Filesystem #####
+_fs_defaults:
+  - dest: /usr/local/(share|lib)/.*\.sh
+    mode: a+x
+##### END: Filesystem #####

@@ -13,4 +13,9 @@
           _user: "{{ _user }}"
           ansible_facts: "{{ ansible_facts | default('NA') }}"
           ansible_local: "{{ ansible_local | default('NA') }}"
+          _app_env: "{{ _app_env | default('NA') }}"
+          _is_env_dev: "{{ _is_env_dev | default('NA') }}"
+          _env_hostname: "{{ _env_hostname | default('NA') }}"
+          _env_hns: "{{ _env_hns | default('NA') }}"
+          _env_computername: "{{ _env_computername | default('NA') }}"
       tags: always
