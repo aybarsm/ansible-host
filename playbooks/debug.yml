@@ -9,4 +9,8 @@
       ansible.builtin.debug:
         msg:
           inventory_file: "{{ inventory_file | default('NA')}}"
+          ansible_user: "{{ ansible_user | default('NA') }}"
+          _user: "{{ _user }}"
+          ansible_facts: "{{ ansible_facts | default('NA') }}"
+          ansible_local: "{{ ansible_local | default('NA') }}"
       tags: always

@@ -9,10 +9,6 @@ _fqdn: "{{ _hns }}.{{ _domain }}"
 _repo: https://github.com/aybarsm/ansible-host
 ##### END: Inventory #####
 
-##### BEGIN: Ansible #####
-# ansible_user: blrm
-##### END: Ansible #####
-
 ##### BEGIN: Paths #####
 _p_home: "{{ lookup('ansible.builtin.env', 'HOME') | default('', true) }}"
 _p_pwd: "{{ lookup('ansible.builtin.env', 'PWD') | default('', true) }}"
@@ -40,4 +36,10 @@ _fam: "{{ ansible_facts['os_family'] | default('N/A') | lower }}"
 _dist: "{{ ansible_facts['distribution_release'] | default('N/A') }}"
 _sys: "{{ ansible_facts['system'] | default('N/A') | lower }}"
 _mac_addr_prefix: '02:12:18'
+_user: "{{ lookup('env', 'SUDO_USER') | default(lookup('env', 'USER'), true) }}"
 ##### END: Facts #####
+
+##### BEGIN: Ansible #####
+ansible_config_file: "{{ [_p_root, 'ansible.cfg'] | path_join }}"
+# ansible_user: blrm
+##### END: Ansible #####
