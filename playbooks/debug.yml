@@ -1,0 +1,12 @@
+---
+- name: DEBUG
+  hosts: localhost
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: Pull Host Git Repo
+      ansible.builtin.debug:
+        msg:
+          inventory_file: "{{ inventory_file | default('NA')}}"
+      tags: always
