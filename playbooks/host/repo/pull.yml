@@ -6,6 +6,7 @@
 
   tasks:
     - name: Pull Host Git Repo
+      # noqa: latest
       ansible.builtin.git:
         repo: "{{ _repo }}"
         dest: "{{ _p_root }}"
