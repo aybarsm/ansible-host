@@ -1,0 +1,12 @@
+---
+- name: Pull Host Repo
+  hosts: localhost
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: Pull Host Git Repo
+      ansible.builtin.git:
+        repo: "{{ _repo }}"
+        dest: "{{ _p_root }}"
+      tags: always

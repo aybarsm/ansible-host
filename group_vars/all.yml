@@ -6,6 +6,7 @@ _hns: "{{ inventory_hostname_short }}"
 _hnss: "{{ _hns | regex_replace('-', '_') }}"
 _hns_sb: "{{ _hns | regex_replace('^(.*?)(0)([1-9])-(.*?)(0)([1-9])$', '\\1\\3-\\4\\6') }}"
 _fqdn: "{{ _hns }}.{{ _domain }}"
+_repo: https://github.com/aybarsm/ansible-host
 ##### END: Inventory #####
 
 ##### BEGIN: Ansible #####
