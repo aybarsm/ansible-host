@@ -1,0 +1,42 @@
+---
+##### BEGIN: Inventory #####
+_domain: blrm
+_hn: "{{ inventory_hostname }}"
+_hns: "{{ inventory_hostname_short }}"
+_hnss: "{{ _hns | regex_replace('-', '_') }}"
+_hns_sb: "{{ _hns | regex_replace('^(.*?)(0)([1-9])-(.*?)(0)([1-9])$', '\\1\\3-\\4\\6') }}"
+_fqdn: "{{ _hns }}.{{ _domain }}"
+##### END: Inventory #####
+
+##### BEGIN: Ansible #####
+# ansible_user: blrm
+##### END: Ansible #####
+
+##### BEGIN: Paths #####
+_p_home: "{{ lookup('ansible.builtin.env', 'HOME') | default('', true) }}"
+_p_pwd: "{{ lookup('ansible.builtin.env', 'PWD') | default('', true) }}"
+_p_home_ansible: "{{ [_p_home, '.ansible'] | path_join }}"
+_p_root: "{{ inventory_file | dirname }}"
+_p_roles: "{{ lookup('ansible.builtin.config', 'DEFAULT_ROLES_PATH', on_missing='skip') }}"
+_p_collections: "{{ lookup('ansible.builtin.config', 'COLLECTIONS_PATHS', on_missing='skip') }}"
+_p_froot: "{{ _p_root }}/files"
+_p_fcommon: "{{ _p_froot }}/common"
+_p_fhost: "{{ _p_froot }}/{{ _hns }}"
+_p_droot: "{{ _p_root }}/data"
+_p_dcrypto: "{{ _p_droot }}/crypto"
+_p_data: "{{ _p_root }}/data.json"
+_p_dev: "{{ _p_root }}/dev"
+##### END: Paths #####
+
+##### BEGIN: Facts #####
+_arch_alts:
+  x86_64: amd64
+  arm64: aarch64
+_arch: "{{ ansible_facts['architecture'] | default('N/A') | lower }}"
+_arch_apt: "{{ 'arm64' if _arch == 'aarch64' else 'armhf' if _arch == 'armv7l' else 'amd64' }}"
+_arch_alt: "{{ _tmp.arch[_arch] | default('N/A') | lower }}"
+_fam: "{{ ansible_facts['os_family'] | default('N/A') | lower }}"
+_dist: "{{ ansible_facts['distribution_release'] | default('N/A') }}"
+_sys: "{{ ansible_facts['system'] | default('N/A') | lower }}"
+_mac_addr_prefix: '02:12:18'
+##### END: Facts #####
