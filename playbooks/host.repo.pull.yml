@@ -22,6 +22,7 @@
       ansible.builtin.git:
         repo: "{{ _collection }}"
         dest: "{{ _p_collection }}"
+        force: true
       when: _exec_collection_pull 
       register: exec_git_host_collection_repo
       tags: always
@@ -31,6 +32,7 @@
       ansible.builtin.git:
         repo: "{{ _repo }}"
         dest: "{{ _p_root }}"
+        force: true
       when: _exec_pull
       register: exec_git_host_git_repo
       tags: always
