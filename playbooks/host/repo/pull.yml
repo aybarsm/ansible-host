@@ -12,9 +12,3 @@
         dest: "{{ _p_root }}"
       register: exec_git_host_git_repo
       tags: always
-
-    - name: DEBUG
-      ansible.builtin.debug:
-        msg:
-          exec_git_host_git_repo: "{{ exec_git_host_git_repo | default('NA')}}"
-      tags: always
