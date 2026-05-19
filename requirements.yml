@@ -1,0 +1,5 @@
+---
+collections:
+  - name: https://github.com/aybarsm/ansible-collection-all.git
+    type: git
+    version: main

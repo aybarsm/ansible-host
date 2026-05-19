@@ -20,6 +20,7 @@
         msg:
           _srcs: "{{ _srcs }}"
           _dests: "{{ _dests }}"
+          _combined: "{{ {'src': _srcs, 'dest': _dests} | aybarsm.all.to_lofs }}"
           # _p_fcommon: "{{ _p_fcommon }}"
           # fs_exec_find_files: "{{ fs_exec_find_files }}"
           # _dests: "{{ _dests }}"

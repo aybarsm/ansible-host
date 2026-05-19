@@ -3,13 +3,34 @@
   hosts: localhost
   become: false
   gather_facts: false
+  vars:
+    _exec_pull: "{{ not _is_env_dev }}"
+    _exec_collection_pull: "{{ _exec_pull and _collection and _p_collection }}"
 
   tasks:
+    - name: Ensure Host Collection Repo Directory Exists
+      ansible.builtin.file:
+        path: "{{ _p_collection | dirname }}"
+        recurse: true
+        state: directory
+      when: _exec_collection_pull 
+      register: exec_file_host_collection_repo
+      tags: always
+
+    - name: Pull Host Collection Repo
+      # noqa: latest
+      ansible.builtin.git:
+        repo: "{{ _collection }}"
+        dest: "{{ _p_collection }}"
+      when: _exec_collection_pull 
+      register: exec_git_host_collection_repo
+      tags: always
+
     - name: Pull Host Git Repo
       # noqa: latest
       ansible.builtin.git:
         repo: "{{ _repo }}"
         dest: "{{ _p_root }}"
-      when: not _is_env_dev
+      when: _exec_pull
       register: exec_git_host_git_repo
       tags: always
